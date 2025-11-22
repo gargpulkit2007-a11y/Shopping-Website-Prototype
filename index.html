@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row mb-3">
+  <div class="col-12">
+    <h1 class="display-6">Welcome to MLSC Premium Shop</h1>
+    <p class="lead">Clean, modern UI to impress recruiters.</p>
+  </div>
+</div>
+
+<div class="row">
+  {% for p in products %}
+  <div class="col-md-3 mb-4">
+    <div class="card h-100 shadow-sm">
+      <img src="/static/images/{{ p['image'] }}" class="card-img-top" style="height:180px;object-fit:cover" alt="{{ p['name'] }}">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ p['name'] }}</h5>
+        <p class="card-text text-muted small">{{ p['category'] or 'Uncategorized' }}</p>
+        <p class="card-text">{{ p['description'][:80] }}{% if p['description']|length>80 %}...{% endif %}</p>
+        <div class="mt-auto">
+          <p class="fw-bold">₹{{ p['price'] }}</p>
+          <a href="/product/{{ p['id'] }}" class="btn btn-primary btn-sm">View</a>
+          {% if session.get('user_id') %}
+            <a href="/add_to_cart/{{ p['id'] }}" class="btn btn-success btn-sm">Add to cart</a>
+          {% else %}
+            <a href="/login" class="btn btn-outline-secondary btn-sm">Login to buy</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

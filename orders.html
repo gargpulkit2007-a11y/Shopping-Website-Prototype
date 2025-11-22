@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>My Orders</h2>
+{% if orders %}
+  {% for o in orders %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5>Order #{{ o.order['id'] }} — ₹{{ o.order['total'] }}</h5>
+        <p class="text-muted">Placed at {{ o.order['created_at'] }}</p>
+        <ul>
+          {% for it in o.items %}
+            <li>{{ it['qty'] }} x {{ it['name'] }} — ₹{{ it['price'] }} each</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <p>You have no orders yet.</p>
+{% endif %}
+{% endblock %}

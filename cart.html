@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Your Cart</h2>
+{% if items %}
+  <table class="table">
+    <thead><tr><th>Product</th><th>Qty</th><th>Price</th><th>Subtotal</th></tr></thead>
+    <tbody>
+      {% for it in items %}
+        <tr>
+          <td>{{ it.product['name'] }}</td>
+          <td>{{ it.qty }}</td>
+          <td>₹{{ it.product['price'] }}</td>
+          <td>₹{{ it.subtotal }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <h4>Total: ₹{{ total }}</h4>
+  <form method="post" action="/checkout"><button class="btn btn-success">Checkout</button></form>
+  <a href="/clear_cart" class="btn btn-outline-danger ms-2">Clear Cart</a>
+{% else %}
+  <p>Your cart is empty. Browse products to add items.</p>
+{% endif %}
+{% endblock %}
